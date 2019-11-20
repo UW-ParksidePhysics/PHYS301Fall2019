@@ -34,6 +34,7 @@ positions = np.zeros((number_initial_conditions, number_times))
 velocities = np.zeros((number_initial_conditions, number_times))
 initial_conditions_index = 0
 for y0, v0 in zip(distance_initial, velocity_initial):
+    print("Initial condition {} = ({} m, {} m/s)".format(initial_conditions_index, y0, v0))
     output = solve_ivp(free_fall, time_span, (y0, v0), t_eval=times)
     positions[initial_conditions_index] = output.y[0]
     velocities[initial_conditions_index] = output.y[1]
@@ -43,6 +44,7 @@ plt.subplot(221)
 initial_conditions_index = 0
 while initial_conditions_index < number_initial_conditions:
     plt.plot(times, positions[initial_conditions_index])
+    initial_conditions_index += 1
 
 plt.axis([0, 10, 0, 150])
 plt.title('position vs time', fontsize=10)
@@ -55,6 +57,7 @@ plt.subplot(223)
 initial_conditions_index = 0
 while initial_conditions_index < number_initial_conditions:
     plt.plot(times, velocities[initial_conditions_index])
+    initial_conditions_index += 1
 
 plt.axis([0, 10, -100, 0])
 plt.title('velocity vs time', fontsize=10)
@@ -67,6 +70,7 @@ plt.subplot(224)
 initial_conditions_index = 0
 while initial_conditions_index < number_initial_conditions:
     plt.plot(positions[initial_conditions_index], velocities[initial_conditions_index])
+    initial_conditions_index += 1
 
 plt.axis([0, 150, -100, 0])
 plt.title('position vs velocity', fontsize=10)
@@ -83,6 +87,7 @@ while initial_conditions_index < number_initial_conditions:
 
     plt.plot(times, analytical_positions)
     initial_conditions_index += 1
+
 plt.axis([0, 10, 0, 150])
 plt.title('analytical position vs time', fontsize=10)
 plt.xlabel('Times (s)', fontsize=8)
